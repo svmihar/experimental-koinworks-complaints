@@ -2,14 +2,18 @@ import texthero.preprocessing as h
 import pandas as pd
 
 stopwords = {a.replace("\n", "") for a in (open("stopwords.txt").readlines())}
+custom_pipeline = (
+        h.lowercase,
+        h.remove_digits, 
+        h.remove_punctuation, 
+        h.remove_diacritics, 
+        lambda x: h.remove_stopwords(x, stopwords=stopwords), 
+        h.remove_whitespace
+        )
 
 
 def custom_pipe(tweets):
-    tot = h.clean(tweets)
-    tot = h.remove_whitespace(tot)
-    tot = h.remove_html_tags(tot)
-    s = h.remove_stopwords(tot, stopwords=stopwords)
-    return s
+    return 
 
 
 def is_referral(tweet):
@@ -23,9 +27,7 @@ def is_referral(tweet):
 
 
 df = pd.read_csv("koinworks_raw.csv")
-t = df["tweet"]
-cleaned_t = custom_pipe(t)
-df["cleaned"] = cleaned_t
+df["cleaned"] = h.clean(df['tweet'], pipeline=custom_pipeline)
 df["is_ref"] = df["cleaned"].apply(is_referral)
 df = df[df["is_ref"] == False]
 df = df[df["username"] != "danielchayau"]
