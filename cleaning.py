@@ -6,6 +6,7 @@ stopwords = {a.replace("\n", "") for a in (open("stopwords.txt").readlines())}
 
 def custom_pipe(tweets):
     tot = h.clean(tweets)
+    tot = h.remove_whitespace(tot)
     tot = h.remove_html_tags(tot)
     s = h.remove_stopwords(tot, stopwords=stopwords)
     return s

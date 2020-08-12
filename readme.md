@@ -40,7 +40,17 @@ mostlikely keluhan keywords:
 - do as above but instead of keluhan, search for the "good thigs"
 - do as above but search, the non essential tweets (promo, etc)
 
-
+## frontend
+- dashboard: 
+	- daily keluhan berapa 
+	- top keywords keluhan
+- search engine
+	- bisa tau kasus mana yang mirip dengan yang dicari
+		- ini ngelist username, tweet sama tanggal dia ngetweetnya
+## blog post ideas
+- [ini buat opening](https://twitter.com/pakelagu/status/1292346337803923456)
+	- meme: top: SHARE KODE KW
+	- meme: bottom: KU TERTYPU OLEH KW
 ### extras
 - aplikasinya sempet ilang juga lol  cek id: 517, 529, , cek tanggal, cek sumber
 - dari search twitter sempet peak di 263 tweet di 04-02-2020 dan 09-01-2020
