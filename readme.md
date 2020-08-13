@@ -1,4 +1,4 @@
-# Scraping 
+#[ Scraping 
 ## twitter
 - [x] koinworks
 - [x] koinwork
@@ -47,6 +47,20 @@ mostlikely keluhan keywords:
 - search engine
 	- bisa tau kasus mana yang mirip dengan yang dicari
 		- ini ngelist username, tweet sama tanggal dia ngetweetnya
+
+## search engine
+[milvus](https://milvus.io/)
+
+## lda buat nyari complain
+- dari lda didapet topic 23,44, 27
+- topic 23: 
+	ini bentuknya ada investasi yang belum dikembalikan
+- topic 44:
+	ini bentuknya "jawaban" atau reply twitter dari koinworks, kadang ngereferensiin keluhan pelanggan
+- topic 27: 
+	bentuknya komplain aplikasi, terkait, error, foto selfie, website yagn gak beres
+setelah diambil dari tweet yang bukan dari koinworks didapat topic nomor: 14, 22, 34, 42
+
 ## blog post ideas
 - [ini buat opening](https://twitter.com/pakelagu/status/1292346337803923456)
 	- meme: top: SHARE KODE KW

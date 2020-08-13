@@ -35,3 +35,10 @@ df.dropna(inplace=True)
 df.reset_index(inplace=True)
 
 df.to_csv("koinworks_cleaned.csv", index=False)
+
+
+# testing kalo stopwords nya udah di remove
+for tweet in df['cleaned'].values: 
+    if 'kalian' in tweet: 
+        print('belum ke remove')
+        break
