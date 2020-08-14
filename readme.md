@@ -1,6 +1,24 @@
 # Scraping tweet tentang koinworks
 we got em boys. keluhan classifier. classifiy which tweet are "keluhan terhadap telat bayar ke koinworks"
 
+## approach 
+### finding the keluhan tweets
+- scrape the tweets
+- topic model using lda
+- find a topic that describes a keluhan well
+	- from wordings
+	- random sample
+- re label the assumed keluhan tweet
+	- involves delete the tweets that aren't related to keluhan
+- after finding a good keluhan dataset find similar tweets (which aren't not the in the keluhan dataset)
+	- making sure all tweets are keluhan and not keluhan
+
+### methods
+all these method to find the keluhan tweet are thematically related. 
+- scraping: twint
+- topic model: ktrain's get_document_topic
+- similar texts: cosine similarity (on tfidf trained with ktrain's)
+	k train is using the one class classification (svm)
 
 ## twitter
 - [x] koinworks
