@@ -1,4 +1,7 @@
-#[ Scraping 
+# Scraping tweet tentang koinworks
+we got em boys. keluhan classifier. classifiy which tweet are "keluhan terhadap telat bayar ke koinworks"
+
+
 ## twitter
 - [x] koinworks
 - [x] koinwork
@@ -21,10 +24,11 @@ dunno, will do if feeling cute lol
 
 ## EDA 
 - [x] top 100 most common unigram
-- [ ] top 100 most common bigram
-- [ ] top 100 most common trigram
+- [x] top 100 most common bigram
+- [x] top 100 most common trigram
 - [x] wordcloud
-- [ ] maybe topic modelling with LDA
+- [x] maybe topic modelling with LDA
+- [ ] distribusi kata yang merupakan keluhan
 - visualize
 	- ~~tfidf~~
 	- kmeans
@@ -32,7 +36,7 @@ dunno, will do if feeling cute lol
 
 ## labelling
 - search tweet with a definite "keluhan", then use cosine similarity to search similar ones, then label it too as keluhan
-id: [11, 262, 282, 368, 379, 398, 404, 441, 516, 530, 555, 642, 660, 702, 799, 806, 819, 872, 1241, 1242, 1243, 1415,1609 ]
+cek di `koinworks_labeled_lda.csv`
 
 mostlikely keluhan keywords: 
 ['telat', ]
@@ -60,6 +64,9 @@ mostlikely keluhan keywords:
 - topic 27: 
 	bentuknya komplain aplikasi, terkait, error, foto selfie, website yagn gak beres
 setelah diambil dari tweet yang bukan dari koinworks didapat topic nomor: 14, 22, 34, 42
+- di csv koinworks_keluhan_lda:
+	- topic 12 itu kebanyakan promosi dan suruh cek dm
+	- topic 11 is definitely keluhan
 
 ## blog post ideas
 - [ini buat opening](https://twitter.com/pakelagu/status/1292346337803923456)
