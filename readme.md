@@ -72,6 +72,7 @@ mostlikely keluhan keywords:
 
 ## search engine
 [milvus](https://milvus.io/)
+- itu lstm-cnn nya masih error, gue juga gak tau kenapa buat classifier lol, yang dibutuhkan embedding padahal 
 
 ## lda buat nyari complain
 - dari lda didapet topic 23,44, 27
