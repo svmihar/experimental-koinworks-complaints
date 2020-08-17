@@ -79,9 +79,10 @@ mostlikely keluhan keywords:
 - make embedding:
 	- [x] tfidf, done `tfidf.pkl`
 	- [ ] fasttext
-	- [ ] flairembeddings
-		- ValueError: Found array with dim 3. check_pairwise_arrays expected <= 2. gak tau padahal gak adayang bikin dimensi 3
+	- [x] flairembeddings
+		- ~~ValueError: Found array with dim 3. check_pairwise_arrays expected <= 2. gak tau padahal gak adayang bikin dimensi 3~~ ganti ke scipy
 
+id nya ikut di `0_koinworks_raw.csv` udah dibikin `uuid4` biar gampang bikin indexernya
 
 ## lda buat nyari complain
 - dari lda didapet topic 23,44, 27
