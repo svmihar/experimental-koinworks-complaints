@@ -35,8 +35,8 @@ df["is_ref"] = df["cleaned"].apply(is_referral)
 df = df[df["is_ref"] == False]
 df = df[df["username"] != "danielchayau"]  # spam / bot account
 df = df[df["username"] != "koinworks"]  # own koinworks
-df.dropna(inplace=True)
-df.reset_index(inplace=True)
+df = df.dropna()
+df = df.reset_index(inplace=True)
 
 print("now saving the flair format dataset")
 from sklearn.model_selection import train_test_split

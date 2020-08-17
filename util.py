@@ -1,5 +1,4 @@
 from pathlib import Path
-
 from torch.utils import data
 
 data_path = Path("./data")

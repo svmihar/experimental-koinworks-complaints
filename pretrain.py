@@ -1,9 +1,8 @@
 from flair.data import Dictionary
 from flair.embeddings import FlairEmbeddings
 from flair.trainers.language_model_trainer import LanguageModelTrainer, TextCorpus
-from util import data_path
+from util import data_path, flair_datapath, train_flair_datapath
 
-flair_datapath = data_path / "flair_format"
 # instantiate an existing LM, such as one from the FlairEmbeddings
 language_model = FlairEmbeddings("id-forward").lm
 
