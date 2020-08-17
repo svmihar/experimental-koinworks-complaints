@@ -6,7 +6,7 @@ from fire import Fire
 console = Console()
 
 
-def label(csv="koinworks_keluhan_lda.csv"):
+def label(csv="3_koinworks_keluhan_lda.csv"):
     df = pd.read_csv(csv)
     assert "text" in df.columns
     labels = []
@@ -16,7 +16,7 @@ def label(csv="koinworks_keluhan_lda.csv"):
         text = f"""## {item.text}
         topic id is {item.topic_id}
         id is {item.id}
-        - 1 is keluhan 
+        - 1 is keluhan
         - 2 is not keluhan"""
         markdown = Markdown(text)
         console.print(markdown)
@@ -24,7 +24,7 @@ def label(csv="koinworks_keluhan_lda.csv"):
         labels.append(int(label))
         console.clear()
     df["label"] = labels
-    df.to_csv("koinworks_labeled_lda.csv")
+    df.to_csv("4_koinworks_labeled_lda.csv")
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 # Scraping tweet tentang koinworks
 we got em boys. keluhan classifier. classifiy which tweet are "keluhan terhadap telat bayar ke koinworks"
 
-## approach 
+## approach
 ### finding the keluhan tweets
 - scrape the tweets
 - topic model using lda
@@ -14,7 +14,7 @@ we got em boys. keluhan classifier. classifiy which tweet are "keluhan terhadap 
 	- making sure all tweets are keluhan and not keluhan
 
 ### methods
-all these method to find the keluhan tweet are thematically related. 
+all these method to find the keluhan tweet are thematically related.
 - scraping: twint
 - topic model: ktrain's get_document_topic
 - similar texts: cosine similarity (on tfidf trained with ktrain's)
@@ -25,22 +25,22 @@ all these method to find the keluhan tweet are thematically related.
 - [x] koinwork
 
 ## news site?
-- kompas? 
+- kompas?
 - google?
 dunno, will do if feeling cute lol
 [1](https://swa.co.id/swa/trends/koinworks-catat-pertumbuhan-30-pasca-pelonggaran-psbb)
 
 ## preprocessing with texthero
-- [x] remove brackets 
+- [x] remove brackets
 - [x] remove diacritic
 - [x] remove punctuation
-- [x] remove numbers? 
+- [x] remove numbers?
 - [x] remove indo stopwords
-- [x] drop duplicate tweets: 
+- [x] drop duplicate tweets:
 	- promo2 gak jelas -> biasanya bot
 	- referal code -> biasa satu user bisa share beberapa kali
 
-## EDA 
+## EDA
 - [x] top 100 most common unigram
 - [x] top 100 most common bigram
 - [x] top 100 most common trigram
@@ -56,39 +56,40 @@ dunno, will do if feeling cute lol
 - search tweet with a definite "keluhan", then use cosine similarity to search similar ones, then label it too as keluhan
 cek di `koinworks_labeled_lda.csv`
 
-mostlikely keluhan keywords: 
+mostlikely keluhan keywords:
 ['telat', ]
 
 - do as above but instead of keluhan, search for the "good thigs"
 - do as above but search, the non essential tweets (promo, etc)
 
 ## frontend
-- dashboard: 
-	- daily keluhan berapa 
+- dashboard:
+	- daily keluhan berapa
 	- top keywords keluhan
 - search engine
 	- bisa tau kasus mana yang mirip dengan yang dicari
 		- ini ngelist username, tweet sama tanggal dia ngetweetnya
 ## embeddings
-### flair 
+### flair
 - [ ] pretrain with lm-forward + tweets
-- [ ] make tweet encoder 
+- [ ] make tweet encoder
 
 ## search engine
 [milvus](https://milvus.io/)
-- make embedding: 
+- make embedding:
 	- [x] tfidf, done `tfidf.pkl`
 	- [ ] fasttext
 	- [ ] flairembeddings
+		- ValueError: Found array with dim 3. check_pairwise_arrays expected <= 2. gak tau padahal gak adayang bikin dimensi 3
 
 
 ## lda buat nyari complain
 - dari lda didapet topic 23,44, 27
-- topic 23: 
+- topic 23:
 	ini bentuknya ada investasi yang belum dikembalikan
 - topic 44:
 	ini bentuknya "jawaban" atau reply twitter dari koinworks, kadang ngereferensiin keluhan pelanggan
-- topic 27: 
+- topic 27:
 	bentuknya komplain aplikasi, terkait, error, foto selfie, website yagn gak beres
 setelah diambil dari tweet yang bukan dari koinworks didapat topic nomor: 14, 22, 34, 42
 - di csv koinworks_keluhan_lda:
