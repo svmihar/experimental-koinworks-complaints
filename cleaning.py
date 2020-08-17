@@ -1,4 +1,5 @@
 import texthero.preprocessing as h
+from util import data_path
 import pandas as pd
 
 stopwords = {a.replace("\n", "") for a in (open("stopwords.txt").readlines())}
@@ -26,15 +27,36 @@ def is_referral(tweet):
         return p
 
 
-df = pd.read_csv("koinworks_raw.csv")
+df = pd.read_csv(data_path / "koinworks_raw.csv")
 df["cleaned"] = h.clean(df["tweet"], pipeline=custom_pipeline)
+df["flair_dataset"] = h.clean(df["tweet"], pipeline=custom_pipeline[:4])
+df["flair_dataset"] = h.remove_whitespace(df["flair_dataset"])
 df["is_ref"] = df["cleaned"].apply(is_referral)
 df = df[df["is_ref"] == False]
-df = df[df["username"] != "danielchayau"]
+df = df[df["username"] != "danielchayau"]  # spam / bot account
+df = df[df["username"] != "koinworks"]  # own koinworks
 df.dropna(inplace=True)
 df.reset_index(inplace=True)
 
-df.to_csv("koinworks_cleaned.csv", index=False)
+print("now saving the flair format dataset")
+from sklearn.model_selection import train_test_split
+
+tweets = df.flair_dataset.values
+x, y = train_test_split(tweets)
+y_test, y_val = train_test_split(y)
+del y
+with open(data_path / "flair_format/train/train.txt", "w") as f:
+    for t in x:
+        f.writelines(f"{t}\n")
+with open(data_path / "flair_format/test.txt", "w") as f:
+    for t in y_test:
+        f.writelines(f"{t}\n")
+
+with open(data_path / "flair_format/valid.txt", "w") as f:
+    for t in y_val:
+        f.writelines(f"{t}\n")
+
+df.to_csv(data_path / "koinworks_cleaned.csv", index=False)
 
 
 # testing kalo stopwords nya udah di remove

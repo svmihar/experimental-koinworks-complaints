@@ -1,0 +1,5 @@
+{
+    "python.pythonPath": "/home/svmihar/.cache/pypoetry/virtualenvs/koinworks-consent-T5-gyrWD-py3.7/bin/python3",
+    "python.formatting.provider": "black",
+    "python.dataScience.jupyterServerURI": "local"
+}

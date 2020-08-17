@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "koinworks-consent"
+version = "0.1.0"
+description = ""
+authors = ["svmihar <svmihar@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+rich = "^5.2.0"
+pandas = "^1.1.0"
+sklearn = "^0.0"
+flair = "^0.5.1"
+texthero = "^1.0.9"
+fastparquet = "^0.4.1"
+
+[tool.poetry.dev-dependencies]
+black = {version = "^19.10b0", allow-prereleases = true}
+ipython = "^7.17.0"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

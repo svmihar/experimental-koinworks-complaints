@@ -69,10 +69,18 @@ mostlikely keluhan keywords:
 - search engine
 	- bisa tau kasus mana yang mirip dengan yang dicari
 		- ini ngelist username, tweet sama tanggal dia ngetweetnya
+## embeddings
+### flair 
+- [ ] pretrain with lm-forward + tweets
+- [ ] make tweet encoder 
 
 ## search engine
 [milvus](https://milvus.io/)
-- itu lstm-cnn nya masih error, gue juga gak tau kenapa buat classifier lol, yang dibutuhkan embedding padahal 
+- make embedding: 
+	- [x] tfidf, done `tfidf.pkl`
+	- [ ] fasttext
+	- [ ] flairembeddings
+
 
 ## lda buat nyari complain
 - dari lda didapet topic 23,44, 27
