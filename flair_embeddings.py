@@ -9,6 +9,7 @@ from flair.embeddings.token import FlairEmbeddings # using pool because tweets a
 # TODO: a good logging will go a long way, yeah shut up
 print('loading model')
 model = FlairEmbeddings('./models/best-lm.pt')
+document_model = DocumentPoolEmbeddings([model])
 
 # load cleaned tweets
 df = pd.read_csv(data_path/'koinworks_cleaned.csv')
@@ -20,5 +21,5 @@ del df
 embeddings = []
 for tweet in tqdm(tweets):
     s = Sentence(tweet)
-    model.embed(s)
+    document_model.embed(s)
     embeddings.append(s.embedding.detach().cpu().numpy().reshape(1,-1))
