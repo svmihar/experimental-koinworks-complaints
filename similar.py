@@ -64,7 +64,7 @@ def keluhan_flair():
 
 def get_k_word(tweets: list): 
     words = [b for a in tweets for b in a.split()]
-    return list(Counter(words).keys())[:20]
+    return [a[0] for a in Counter(words).most_common(10)]
     
     
 def dbscan_method(df): 
@@ -85,8 +85,13 @@ def dbscan_method(df):
         print(label, hasil)
         with open(f'./data/topics/dbscan_{label}.txt', 'a', encoding='utf-8') as f: 
             f.writelines(' '.join(hasil))
+def kmeans_method(df): 
+    # see untitled.ipynb on kmeans analysis
+    pass
+            
             
 def lda_method(df): 
+    """ CANNOT RETRIEVE THE TOPIC ID"""
     texts = df.cleaned.values
     tm = ktrain.text.get_topic_model(texts, n_topics=None, n_features=10000)
     tm.print_topics()
@@ -110,5 +115,5 @@ def get_topics(method='dbscan'):
 if __name__ == "__main__":
     df = pd.read_pickle(data_path / "3_koinworks_embeddings.pkl")
 #     lda_method(df)
-    dbscan_method(df)
+#     dbscan_method(df)
     # keluhan_flair()
