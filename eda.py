@@ -6,7 +6,7 @@ import pandas as pd
 
 
 df = pd.read_pickle(data_path / "1_koinworks_cleaned.pkl")
-df = df[["id","date", "username", "cleaned", "tweet", "flair_dataset", "name"]]
+df = df[["id", "date", "username", "cleaned", "tweet", "flair_dataset", "name"]]
 df["date"] = pd.to_datetime(df["date"])
 print(f"before drop duplicate: {len(df)}")
 df = df.drop_duplicates(subset=["cleaned"])
