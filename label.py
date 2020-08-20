@@ -6,16 +6,16 @@ from fire import Fire
 console = Console()
 
 
-def label(csv="3_koinworks_keluhan_lda.csv"):
+def label(csv="5_keluhan_label_lda.csv"):
     df = pd.read_csv(csv)
     assert "text" in df.columns
     labels = []
     console.clear()
-    for item in df.iterrows():
+    for i, item in enumerate(df.iterrows()):
         item = item[1]
         text = f"""## {item.text}
         topic id is {item.topic_id}
-        id is {item.id}
+        id is {item.range_id}
         - 1 is keluhan
         - 2 is not keluhan"""
         markdown = Markdown(text)
@@ -23,8 +23,9 @@ def label(csv="3_koinworks_keluhan_lda.csv"):
         label = console.input("Your [b]input[/b] here\n")
         labels.append(int(label))
         console.clear()
+        console.print(f"[italic red]{i}/{len(df)}[/italic red]", justify='right')
     df["label"] = labels
-    df.to_csv("4_koinworks_labeled_lda.csv")
+    df.to_csv("6_hasil_label_lda.csv", index=False)
 
 
 if __name__ == "__main__":

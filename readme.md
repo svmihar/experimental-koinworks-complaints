@@ -76,7 +76,9 @@ mostlikely keluhan keywords:
 - search engine
 	- bisa tau kasus mana yang mirip dengan yang dicari
 		- ini ngelist username, tweet sama tanggal dia ngetweetnya
-        
+
+----
+
 ## embeddings
 this is a [pooled document embeddings](https://github.com/flairNLP/flair/blob/master/resources/docs/embeddings/DOCUMENT_POOL_EMBEDDINGS.md) on: 
 ### flair
@@ -87,27 +89,40 @@ flair model can be downloaded [here](https://drive.google.com/drive/u/5/folders/
 - `WordEmbeddings('id-crawl')`
 
 ## search engine
+### annoy
+- make tree
+
+### milvus
 [milvus](https://milvus.io/)
 - make embedding:
 	- [x] tfidf, done `tfidf.pkl`
-	- [ ] fasttext
+	- [x] fasttext
 	- [x] flairembeddings
 		- ~~ValueError: Found array with dim 3. check_pairwise_arrays expected <= 2. gak tau padahal gak adayang bikin dimensi 3~~ ganti ke scipy
+- gak jadi pake milvus, soalnya dia ternyata framework yang jadi satu sama rest api nya
 
 id nya ikut di `0_koinworks_raw.csv` udah dibikin `uuid4` biar gampang bikin indexernya
 
-## lda buat nyari complain
-- dari lda didapet topic 23,44, 27
-- topic 23:
-	ini bentuknya ada investasi yang belum dikembalikan
-- topic 44:
-	ini bentuknya "jawaban" atau reply twitter dari koinworks, kadang ngereferensiin keluhan pelanggan
-- topic 27:
-	bentuknya komplain aplikasi, terkait, error, foto selfie, website yagn gak beres
-setelah diambil dari tweet yang bukan dari koinworks didapat topic nomor: 14, 22, 34, 42
-- di csv koinworks_keluhan_lda:
-	- topic 12 itu kebanyakan promosi dan suruh cek dm
-	- topic 11 is definitely keluhan
+## potential complaint topics
+### lda
+1, 29, 7
+- topics covers a range of complaints
+	- dm not replied
+	- website error
+	- app error
+	- **dana gak bisa ditarik**
+	- **tiba tiba tenor berubah**
+
+### kmeans
+dumb random shit. decided not to use it as a clustering method
+- tested both in tfidf, and flair embeddings
+
+### dbscan
+9, 
+#### todo
+- [ ] train on flair_pca embedding
+- [ ] tune parameter (epsilon, min pts)
+
 
 ## blog post ideas
 - [ini buat opening](https://twitter.com/pakelagu/status/1292346337803923456)
