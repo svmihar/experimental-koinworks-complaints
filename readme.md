@@ -4,7 +4,8 @@ we got em boys. keluhan classifier. classifiy which tweet are "keluhan terhadap 
 ## approach
 ### finding the keluhan tweets
 - scrape the tweets
-- topic model using lda
+- pretrain embeddings using flair
+- topic model using dbscan on flair's embedding
 - find a topic that describes a keluhan well
 	- from wordings
 	- random sample
@@ -20,7 +21,7 @@ all these method to find the keluhan tweet are thematically related.
 - similar texts: cosine similarity (on tfidf trained with ktrain's)
 	k train is using the one class classification (svm)
 
-## twitter
+## twitter search keywords
 - [x] koinworks
 - [x] koinwork
 
@@ -39,6 +40,7 @@ dunno, will do if feeling cute lol
 - [x] drop duplicate tweets:
 	- promo2 gak jelas -> biasanya bot
 	- referal code -> biasa satu user bisa share beberapa kali
+- [x] drop koinwork's own tweets
 
 ## EDA
 - [x] top 100 most common unigram
@@ -50,7 +52,7 @@ dunno, will do if feeling cute lol
 - visualize
 	- ~~tfidf~~
 	- kmeans
-	- word2vec(?)
+	- flair (pca-ed lol)
 
 ## labelling
 - search tweet with a definite "keluhan", then use cosine similarity to search similar ones, then label it too as keluhan
@@ -69,10 +71,15 @@ mostlikely keluhan keywords:
 - search engine
 	- bisa tau kasus mana yang mirip dengan yang dicari
 		- ini ngelist username, tweet sama tanggal dia ngetweetnya
+        
 ## embeddings
+this is a [pooled document embeddings](https://github.com/flairNLP/flair/blob/master/resources/docs/embeddings/DOCUMENT_POOL_EMBEDDINGS.md) on: 
 ### flair
-- [ ] pretrain with lm-forward + tweets
+- [x] pretrain with lm-forward + tweets
 - [ ] make tweet encoder
+flair model can be downloaded [here](https://drive.google.com/drive/u/5/folders/1uLGvvNCNAjAeOBPKyMwtLfEErBAsYuMQ) 
+### fasttext-id
+- `WordEmbeddings('id-crawl')`
 
 ## search engine
 [milvus](https://milvus.io/)

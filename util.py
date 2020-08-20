@@ -1,4 +1,9 @@
 from pathlib import Path
+import os
+
+os.system('rm -rf /tmp/*')
+os.system('rm -rf /root/.flair/embeddings/')
+
 
 data_path = Path("./data")
 flair_datapath = data_path / "flair_format"

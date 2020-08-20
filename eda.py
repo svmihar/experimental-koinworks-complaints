@@ -2,12 +2,11 @@ from texthero.representation import pca, kmeans
 from sklearn.feature_extraction.text import TfidfVectorizer
 from pathlib import Path
 from util import data_path
-import joblib
 import pandas as pd
 
 
-df = pd.read_csv(data_path / "1_koinworks_cleaned.csv")
-df = df[["id","date", "username", "cleaned", "tweet", "name"]]
+df = pd.read_pickle(data_path / "1_koinworks_cleaned.pkl")
+df = df[["id","date", "username", "cleaned", "tweet", "flair_dataset", "name"]]
 df["date"] = pd.to_datetime(df["date"])
 print(f"before drop duplicate: {len(df)}")
 df = df.drop_duplicates(subset=["cleaned"])
@@ -19,6 +18,22 @@ vectorizer = TfidfVectorizer()
 X = vectorizer.fit_transform(df.cleaned.values)
 df["tfidf_dense"] = [list(a) for a in X.toarray()]
 df["pca"] = df["tfidf_dense"].pipe(pca)
-df.to_parquet(data_path / "2_koinworks_fix.pkl", index=False)
 df["tfidf"] = X
-joblib.dump(X, data_path / "tfidf.pkl")
+df.to_pickle(data_path / "2_koinworks_fix.pkl")
+
+from sklearn.model_selection import train_test_split
+
+tweets = df.flair_dataset.values
+x, y = train_test_split(tweets)
+y_test, y_val = train_test_split(y)
+del y
+with open(data_path / "flair_format/train/train.txt", "w") as f:
+    for t in tweets:
+        f.writelines(f"{t}\n")
+with open(data_path / "flair_format/test.txt", "w") as f:
+    for t in y_test:
+        f.writelines(f"{t}\n")
+
+with open(data_path / "flair_format/valid.txt", "w") as f:
+    for t in y_val:
+        f.writelines(f"{t}\n")

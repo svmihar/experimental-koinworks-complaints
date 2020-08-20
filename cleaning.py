@@ -34,7 +34,7 @@ data_folder = os.listdir()
 
 if '0_koinworks_raw_id.csv' not in data_folder:
     df['id'] = [str(uuid.uuid4()) for _ in range(len(df))]
-    df.to_csv(data_path / "0_koinworks_raw_id.csv")
+    df.to_csv(data_path / "koinworks_raw.csv")
 del data_folder
 
 df["cleaned"] = h.clean(df["tweet"], pipeline=custom_pipeline)
@@ -48,24 +48,8 @@ df = df.dropna()
 df = df.reset_index(drop=True)
 
 print("now saving the flair format dataset")
-from sklearn.model_selection import train_test_split
 
-tweets = df.flair_dataset.values
-x, y = train_test_split(tweets)
-y_test, y_val = train_test_split(y)
-del y
-with open(data_path / "flair_format/train/train.txt", "w") as f:
-    for t in tweets:
-        f.writelines(f"{t}\n")
-with open(data_path / "flair_format/test.txt", "w") as f:
-    for t in y_test:
-        f.writelines(f"{t}\n")
-
-with open(data_path / "flair_format/valid.txt", "w") as f:
-    for t in y_val:
-        f.writelines(f"{t}\n")
-
-df.to_csv(data_path / "1_koinworks_cleaned.csv", index=False)
+df.to_pickle(data_path / "1_koinworks_cleaned.pkl")
 
 
 # testing kalo stopwords nya udah di remove
