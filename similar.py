@@ -3,27 +3,26 @@ try:
 except Exception as e:
     print(e)
     pass
+import numpy as np
+from collections import Counter
 from pprint import pprint
 from joblib import load
 from util import data_path
 import pandas as pd
 from scipy.spatial.distance import cosine
+from sklearn.cluster import DBSCAN
 from pprint import pprint
 
 """
 digunakan untuk membersihkan sebuah topic yang diasumsikan adalah kumpulan keluhan
 """
 
-df = pd.read_csv(data_path / "1_koinworks_cleaned.csv")
-df.dropna(inplace=True)
-df = df.reset_index()
 
 
 def keluhan_ktrain(df):
     df = df[df["username"] != "koinworks"]
     df_keluhan = pd.read_csv("koinworks_labeled_lda.csv")
     df_keluhan = df_keluhan[df_keluhan["label"] == 1]
-    breakpoint()
     texts_keluhan = df_keluhan.text.values
 
     texts = df.cleaned.values
@@ -63,6 +62,53 @@ def keluhan_flair():
     )
     pprint(hasil)
 
+def get_k_word(tweets: list): 
+    words = [b for a in tweets for b in a.split()]
+    return list(Counter(words).keys())[:20]
+    
+    
+def dbscan_method(df): 
+    embeddings = np.array([a for a in df.pca.values])
+    import os
+    os.system('rm -rf ./data/topics/*')
+
+    db = DBSCAN(eps=0.003, min_samples=3) # 3-> 2 * n - 1
+    db.fit(embeddings)
+    labels = db.labels_
+    count_labels = Counter(labels)
+    pprint(count_labels)
+    df = df[['id', 'date', 'username', 'tweet', 'cleaned']]
+    df['dbscan_tfidf']=labels
+    df.to_csv('data/4_dbscan_tfidf.csv', index=False)
+    for label in set(labels): 
+        hasil = get_k_word(df[df['dbscan_tfidf']==label].cleaned.values)
+        print(label, hasil)
+        with open(f'./data/topics/dbscan_{label}.txt', 'a', encoding='utf-8') as f: 
+            f.writelines(' '.join(hasil))
+            
+def lda_method(df): 
+    texts = df.cleaned.values
+    tm = ktrain.text.get_topic_model(texts, n_topics=None, n_features=10000)
+    tm.print_topics()
+    # precompute doc matrix (isinya probability ditribution)
+    tm.build(texts, threshold=0.25)  # kenapa .25, gue juga gak tau, still need to find out
+    # TODO: get the list of topic label
+    import pdb; pdb.set_trace()
+
+
+    df.to_csv('data/4_lda_tfidf.csv', index=False)
+    for label in set(labels): 
+        with open(f'./data/topics/lda_{label}.txt', 'a', encoding='utf-8') as f: 
+            f.writelines(df[df['lda_tfidf']==label].tweet.values)
+            
+    
+def get_topics(method='dbscan'): 
+    df = pd.read_pickle(data_path / "3_koinworks_embeddings.pkl")
+    if method == 'dbscan': 
+        dbscan_method(df)
 
 if __name__ == "__main__":
-    keluhan_flair()
+    df = pd.read_pickle(data_path / "3_koinworks_embeddings.pkl")
+#     lda_method(df)
+    dbscan_method(df)
+    # keluhan_flair()

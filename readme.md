@@ -25,6 +25,11 @@ all these method to find the keluhan tweet are thematically related.
 - [x] koinworks
 - [x] koinwork
 
+
+## pipeline
+- [ ] make one script pipeline
+
+
 ## news site?
 - kompas?
 - google?

@@ -22,11 +22,11 @@ def custom_pipe(tweets):
 def is_referral(tweet):
     p = False
     t = tweet.split()
-    keywords = ["referral", "kode", "referal", "code", "click to watch"]
+    keywords = ["referral", "kode", "referal", "code", "click to watch", 'youtube', 'download', 'gratis']
     for word in keywords:
         if word in t:
-            p = True
-        return p
+            return True
+    return p
 
 
 df = pd.read_csv(data_path / "koinworks_raw.csv")
@@ -41,7 +41,9 @@ df["cleaned"] = h.clean(df["tweet"], pipeline=custom_pipeline)
 df["flair_dataset"] = h.clean(df["tweet"], pipeline=custom_pipeline[:4])
 df["flair_dataset"] = h.remove_whitespace(df["flair_dataset"])
 df["is_ref"] = df["cleaned"].apply(is_referral)
+print(f'sebelum kena keyword block: {len(df)}')
 df = df[df["is_ref"] == False]
+print(f'setelah kena keyword block: {len(df)}')
 df = df[df["username"] != "danielchayau"]  # spam / bot account
 df = df[df["username"] != "koinworks"]  # own koinworks
 df = df.dropna()
