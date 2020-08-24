@@ -1,8 +1,10 @@
-import texthero.preprocessing as h
-from util import data_path
-import pandas as pd
 import os
 import uuid
+
+import pandas as pd
+import texthero.preprocessing as h
+
+from util import data_path
 
 stopwords = {a.replace("\n", "") for a in (open("stopwords.txt").readlines())}
 custom_pipeline = (
@@ -51,6 +53,7 @@ df["flair_dataset"] = h.clean(df["tweet"], pipeline=custom_pipeline[:4])
 df["flair_dataset"] = h.remove_whitespace(df["flair_dataset"])
 df["is_ref"] = df["cleaned"].apply(is_referral)
 print(f"sebelum kena keyword block: {len(df)}")
+
 df = df[df["is_ref"] == False]
 print(f"setelah kena keyword block: {len(df)}")
 df = df[df["username"] != "danielchayau"]  # spam / bot account

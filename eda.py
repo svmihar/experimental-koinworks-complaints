@@ -1,6 +1,6 @@
-from texthero.representation import pca, kmeans
+from texthero.representation import pca
 from sklearn.feature_extraction.text import TfidfVectorizer
-from pathlib import Path
+from sklearn.model_selection import train_test_split
 from util import data_path
 import pandas as pd
 
@@ -20,20 +20,15 @@ df["tfidf_dense"] = [list(a) for a in X.toarray()]
 df["pca"] = df["tfidf_dense"].pipe(pca)
 df["tfidf"] = X
 df.to_pickle(data_path / "2_koinworks_fix.pkl")
-
-from sklearn.model_selection import train_test_split
-
 tweets = df.flair_dataset.values
 x, y = train_test_split(tweets)
 y_test, y_val = train_test_split(y)
-del y
 with open(data_path / "flair_format/train/train.txt", "w") as f:
     for t in tweets:
         f.writelines(f"{t}\n")
 with open(data_path / "flair_format/test.txt", "w") as f:
     for t in y_test:
         f.writelines(f"{t}\n")
-
 with open(data_path / "flair_format/valid.txt", "w") as f:
     for t in y_val:
         f.writelines(f"{t}\n")

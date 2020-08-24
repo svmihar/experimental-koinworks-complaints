@@ -34,8 +34,7 @@ all these method to find the keluhan tweet are thematically related.
 - kompas?
 - google?
 dunno, will do if feeling cute lol
-[1](https://swa.co.id/swa/trends/koinworks-catat-pertumbuhan-30-pasca-pelonggaran-psbb)
-
+[1](https://swa.co.id/swa/trends/koinworks-catat-pertumbuhan-30-pasca-pelonggaran-psbb) 
 ## preprocessing with texthero
 - [x] remove brackets
 - [x] remove diacritic
@@ -107,7 +106,7 @@ id nya ikut di `0_koinworks_raw.csv` udah dibikin `uuid4` biar gampang bikin ind
 ### lda
 1, 29, 7
 - topics covers a range of complaints
-	- dm not replied
+	- cs not replying
 	- website error
 	- app error
 	- **dana gak bisa ditarik**
