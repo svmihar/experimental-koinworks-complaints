@@ -39,7 +39,8 @@ def train_svm(x_train, y_train, x_test, y_test, preproc, bs=5):
     learner.autofit(min(grad_lr), 10)
     learner.view_top_losses(n=10, preproc=preproc)
     learner.validate(class_names = preproc.get_classes())
-    learner.save_model(str(models_path))
+    predictor = ktrain.get_predictor(learner.model, preproc)
+    predictor.save(str(models_path))
 
 def train_gru(x_train, y_train, x_test, y_test, preproc, bs=5):
     model = text.text_classifier("bigru", (x_train, y_train), preproc=preproc)
@@ -49,7 +50,8 @@ def train_gru(x_train, y_train, x_test, y_test, preproc, bs=5):
     learner.lr_find(suggest=True)
     grad_lr = learner.lr_estimate()
     learner.autofit(min(grad_lr), 10)
-    learner.save_model(str(models_path))
+    predictor = ktrain.get_predictor(learner.model, preproc)
+    predictor.save(str(models_path))
     learner.validate(class_names = preproc.get_classes())
 
 def validate(model_path):
@@ -58,5 +60,5 @@ def validate(model_path):
 
 if __name__ == "__main__":
     x = _dataset()
-    # train_svm(*x, bs=2)
-    train_gru(*x)
+    train_svm(*x, bs=2)
+    # train_gru(*x)

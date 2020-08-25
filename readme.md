@@ -27,8 +27,13 @@ all these method to find the keluhan tweet are thematically related.
 
 
 ## pipeline
-- [ ] make one script pipeline
-
+1. cleaning
+2. eda
+3. cluster_topic (choosing the complaining topic)
+[optional] check eda result on `check_topics_clustering.ipynb`
+4. train classifier (bi-lstm)
+	check on misinterpreted results, change accordingly
+5. serve the model
 
 ## news site?
 - kompas?
@@ -55,8 +60,10 @@ dunno, will do if feeling cute lol
 - [ ] distribusi kata yang merupakan keluhan
 - visualize
 	- ~~tfidf~~
-	- kmeans
+	- ~~kmeans~~
 	- flair (pca-ed lol)
+	- ~~lda~~
+	- ~~dbscan~~
 
 ## labelling
 - search tweet with a definite "keluhan", then use cosine similarity to search similar ones, then label it too as keluhan
@@ -116,6 +123,7 @@ id nya ikut di `0_koinworks_raw.csv` udah dibikin `uuid4` biar gampang bikin ind
 	- **tiba tiba tenor berubah**
 
 ### kmeans
+determining k, by using converged silhouette score, `check_topics_clustering.ipynb` on kmeans
 dumb random shit. decided not to use it as a clustering method
 - tested both in tfidf, and flair embeddings
 

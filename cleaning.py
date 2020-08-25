@@ -1,27 +1,14 @@
 import os
-import uuid
-
-import pandas as pd
-import texthero.preprocessing as h
-
+import string
 from util import data_path
-
-stopwords = {a.replace("\n", "") for a in (open("stopwords.txt").readlines())}
-custom_pipeline = (
-    h.lowercase,
-    h.remove_digits,
-    h.remove_punctuation,
-    h.remove_diacritics,
-    lambda x: h.remove_stopwords(x, stopwords=stopwords),
-    h.remove_whitespace,
-)
+import pandas as pd
 
 
-def custom_pipe(tweets):
-    return
+STOPWORDS = {a.replace("\n", "") for a in (open("stopwords.txt").readlines())}
+UNALLOWED = list(string.digits) + list(string.punctuation)
 
 
-def is_referral(tweet):
+def is_referral(tweet: str):
     p = False
     t = tweet.split()
     keywords = [
@@ -40,34 +27,39 @@ def is_referral(tweet):
     return p
 
 
-df = pd.read_csv(data_path / "koinworks_raw.csv")
-data_folder = os.listdir()
-
-if "0_koinworks_raw_id.csv" not in data_folder:
-    df["id"] = [str(uuid.uuid4()) for _ in range(len(df))]
-    df.to_csv(data_path / "koinworks_raw.csv")
-del data_folder
-
-df["cleaned"] = h.clean(df["tweet"], pipeline=custom_pipeline)
-df["flair_dataset"] = h.clean(df["tweet"], pipeline=custom_pipeline[:4])
-df["flair_dataset"] = h.remove_whitespace(df["flair_dataset"])
-df["is_ref"] = df["cleaned"].apply(is_referral)
-print(f"sebelum kena keyword block: {len(df)}")
-
-df = df[df["is_ref"] == False]
-print(f"setelah kena keyword block: {len(df)}")
-df = df[df["username"] != "danielchayau"]  # spam / bot account
-df = df[df["username"] != "koinworks"]  # own koinworks
-df = df.dropna()
-df = df.reset_index(drop=True)
-
-print("now saving the flair format dataset")
-
-df.to_pickle(data_path / "1_koinworks_cleaned.pkl")
+def preprocess(tweet: str) -> str:
+    # lowercase
+    tweet_ = tweet.lower()
+    # remove digits
+    for d in UNALLOWED:
+        tweet_ = tweet_.replace(d, "")
+    # remove multiple white space + split
+    tweet_split = [t for t in tweet_.split() if t]
+    return " ".join([t for t in tweet_split if t not in STOPWORDS])
 
 
-# testing kalo stopwords nya udah di remove
-for tweet in df["cleaned"].values:
-    if "kalian" in tweet:
-        print("belum ke remove")
-        break
+if __name__ == "__main__":
+    df = pd.read_csv(data_path / "koinworks_raw.csv")
+    data_folder = os.listdir()
+
+    df["cleaned"] = df["tweet"].apply(preprocess)
+    df["flair_dataset"] = df['cleaned']
+    df["is_ref"] = df["cleaned"].apply(is_referral)
+    print(f"sebelum kena keyword block: {len(df)}")
+
+    df = df[df["is_ref"] == False]
+    print(f"setelah kena keyword block: {len(df)}")
+    df = df[df["username"] != "danielchayau"]  # spam / bot account
+    df = df[df["username"] != "koinworks"]  # own koinworks
+    df = df.dropna()
+    df = df.reset_index(drop=True)
+
+    print("now saving the flair format dataset")
+
+    df.to_pickle(data_path / "1_koinworks_cleaned.pkl")
+
+    # testing kalo STOPWORDS nya udah di remove
+    for tweet in df["cleaned"].values:
+        if "kalian" in tweet:
+            print("belum ke remove")
+            break

@@ -1,4 +1,5 @@
 try:
+    import os
     import ktrain
 except Exception as e:
     print(e)
@@ -22,10 +23,7 @@ def get_k_word(tweets: list):
 
 def dbscan_method(df):
     embeddings = np.array([a for a in df.pca.values])
-    import os
-
     os.system("rm -rf ./data/topics/*")
-
     db = DBSCAN(eps=0.003, min_samples=3)  # 3-> 2 * n - 1
     db.fit(embeddings)
     labels = db.labels_
@@ -62,12 +60,12 @@ def lda_method(df):
     keluhan_df = pd.DataFrame(docs, columns=["text", "range_id", "score", "topic_id"])
     keluhan_df = keluhan_df[["text", "range_id", "topic_id"]]
     df = df.merge(keluhan_df, on="range_id")
-    df = df[['id', 'date', 'username', 'cleaned','range_id', 'topic_d']]
-    df.to_csv('./data/5_keluhan_lda.csv', index=False)
+    df = df[["id", "date", "username", "cleaned", "range_id", "topic_d"]]
+    df.to_csv("./data/5_keluhan_lda.csv", index=False)
 
 
 if __name__ == "__main__":
     df = pd.read_pickle(data_path / "3_koinworks_embeddings.pkl")
     lda_method(df)
 #     dbscan_method(df)
-    # keluhan_flair()
+# keluhan_flair()
