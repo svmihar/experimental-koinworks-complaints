@@ -7,7 +7,7 @@ console = Console()
 
 
 def label(csv="5_keluhan_label_lda.csv"):
-    df = pd.read_csv(csv)
+    df = pd.read_csv("./data/" + csv)
     assert "text" in df.columns
     labels = []
     console.clear()
@@ -20,10 +20,10 @@ def label(csv="5_keluhan_label_lda.csv"):
         - 2 is not keluhan"""
         markdown = Markdown(text)
         console.print(markdown)
-        label = console.input("Your [b]input[/b] here\n")
+        label = 1
         labels.append(int(label))
         console.clear()
-        console.print(f"[italic red]{i}/{len(df)}[/italic red]", justify='right')
+        console.print(f"[italic red]{i}/{len(df)}[/italic red]", justify="right")
     df["label"] = labels
     df.to_csv("6_hasil_label_lda.csv", index=False)
 

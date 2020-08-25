@@ -34,7 +34,7 @@ all these method to find the keluhan tweet are thematically related.
 - kompas?
 - google?
 dunno, will do if feeling cute lol
-[1](https://swa.co.id/swa/trends/koinworks-catat-pertumbuhan-30-pasca-pelonggaran-psbb) 
+[1](https://swa.co.id/swa/trends/koinworks-catat-pertumbuhan-30-pasca-pelonggaran-psbb)
 ## preprocessing with texthero
 - [x] remove brackets
 - [x] remove diacritic
@@ -69,6 +69,9 @@ mostlikely keluhan keywords:
 - do as above but search, the non essential tweets (promo, etc)
 
 ## frontend
+- classifier:
+	- menentukan apakah tweet itu komplain atau nggak
+		ada penjelasan: ini ada di modulenya ktrain
 - dashboard:
 	- daily keluhan berapa
 	- top keywords keluhan
@@ -79,11 +82,11 @@ mostlikely keluhan keywords:
 ----
 
 ## embeddings
-this is a [pooled document embeddings](https://github.com/flairNLP/flair/blob/master/resources/docs/embeddings/DOCUMENT_POOL_EMBEDDINGS.md) on: 
+this is a [pooled document embeddings](https://github.com/flairNLP/flair/blob/master/resources/docs/embeddings/DOCUMENT_POOL_EMBEDDINGS.md) on:
 ### flair
 - [x] pretrain with lm-forward + tweets
 - [ ] make tweet encoder
-flair model can be downloaded [here](https://drive.google.com/drive/u/5/folders/1uLGvvNCNAjAeOBPKyMwtLfEErBAsYuMQ) 
+flair model can be downloaded [here](https://drive.google.com/drive/u/5/folders/1uLGvvNCNAjAeOBPKyMwtLfEErBAsYuMQ)
 ### fasttext-id
 - `WordEmbeddings('id-crawl')`
 
@@ -92,7 +95,7 @@ flair model can be downloaded [here](https://drive.google.com/drive/u/5/folders/
 - make tree
 
 ### milvus
-[milvus](https://milvus.io/)
+~~[milvus](https://milvus.io/)~~
 - make embedding:
 	- [x] tfidf, done `tfidf.pkl`
 	- [x] fasttext
@@ -117,11 +120,7 @@ dumb random shit. decided not to use it as a clustering method
 - tested both in tfidf, and flair embeddings
 
 ### dbscan
-9, 
-#### todo
-- [ ] train on flair_pca embedding
-- [ ] tune parameter (epsilon, min pts)
-
+9, sucks.
 
 ## blog post ideas
 - [ini buat opening](https://twitter.com/pakelagu/status/1292346337803923456)
