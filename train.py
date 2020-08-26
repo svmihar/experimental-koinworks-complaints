@@ -8,7 +8,7 @@ models_path = Path("./models")
 if not dataset.is_file():
     raise FileNotFoundError()
 if not models_path.is_dir():
-    print('model path is not found, creating a new one')
+    print("model path is not found, creating a new one")
     models_path.mkdir(exist_ok=True, parents=True)
 
 
@@ -38,9 +38,10 @@ def train_svm(x_train, y_train, x_test, y_test, preproc, bs=5):
     grad_lr = learner.lr_estimate()
     learner.autofit(min(grad_lr), 10)
     learner.view_top_losses(n=10, preproc=preproc)
-    learner.validate(class_names = preproc.get_classes())
+    learner.validate(class_names=preproc.get_classes())
     predictor = ktrain.get_predictor(learner.model, preproc)
     predictor.save(str(models_path))
+
 
 def train_gru(x_train, y_train, x_test, y_test, preproc, bs=5):
     model = text.text_classifier("bigru", (x_train, y_train), preproc=preproc)
@@ -52,11 +53,13 @@ def train_gru(x_train, y_train, x_test, y_test, preproc, bs=5):
     learner.autofit(min(grad_lr), 10)
     predictor = ktrain.get_predictor(learner.model, preproc)
     predictor.save(str(models_path))
-    learner.validate(class_names = preproc.get_classes())
+    learner.validate(class_names=preproc.get_classes())
+
 
 def validate(model_path):
     model = None
     pass
+
 
 if __name__ == "__main__":
     x = _dataset()

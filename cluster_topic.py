@@ -9,11 +9,14 @@ from collections import Counter
 from pprint import pprint
 from util import data_path
 import pandas as pd
-from sklearn.cluster import DBSCAN
+from sklearn.cluster import DBSCAN, KMeans
+from sklearn.metrics import silhouette_samples, silhouette_score
 
 """
 clustering topics
 """
+# TODO: bikin top k words per cluster method
+# TODO: pemilih
 
 
 def get_k_word(tweets: list):
@@ -21,27 +24,36 @@ def get_k_word(tweets: list):
     return [a[0] for a in Counter(words).most_common(10)]
 
 
-def dbscan_method(df):
-    embeddings = np.array([a for a in df.pca.values])
-    os.system("rm -rf ./data/topics/*")
+def check_column(column_name, df):
+    return column_name in df.columns
+
+
+def kmeans_(df):
+    if not check_column("pca", df):
+        raise ValueError("column pca not found in df")
+    X = np.array([a for a in df.pca.values])
+    range_n_cluster = [x for x in range(4, 20, 2)]
+    clusters = [KMeans(n_clusters=n) for n in range_n_cluster]
+    labels = [cluster.fit_predict(X) for cluster in clusters]
+    scores = [silhouette_score(X, label) for label in labels]
+    best_by_index = np.argmax(scores)
+    print(
+        f"highest silhouette score is {scores[best_by_index]}\n \
+            with n_cluster: {range_n_cluster[best_by_index]} "
+    )
+    df["kmeans"] = labels[best_by_index]
+    return df
+
+
+def dbscan_(df):
+    if not check_column("pca", df):
+        raise ValueError("column pca not found in df")
+    X = np.array([a for a in df.pca.values])
     db = DBSCAN(eps=0.003, min_samples=3)  # 3-> 2 * n - 1
-    db.fit(embeddings)
+    db.fit(X)
     labels = db.labels_
-    count_labels = Counter(labels)
-    pprint(count_labels)
-    df = df[["id", "date", "username", "tweet", "cleaned"]]
-    df["dbscan_tfidf"] = labels
-    df.to_csv("data/4_dbscan_tfidf.csv", index=False)
-    for label in set(labels):
-        hasil = get_k_word(df[df["dbscan_tfidf"] == label].cleaned.values)
-        print(label, hasil)
-        with open(f"./data/topics/dbscan_{label}.txt", "a", encoding="utf-8") as f:
-            f.writelines(" ".join(hasil))
-
-
-def kmeans_method(df):
-    # see untitled.ipynb on kmeans analysis
-    pass
+    df["dbscan"] = labels
+    return df
 
 
 def lda_method(df):
@@ -66,6 +78,7 @@ def lda_method(df):
 
 if __name__ == "__main__":
     df = pd.read_pickle(data_path / "3_koinworks_embeddings.pkl")
-    lda_method(df)
+    tes = df.pipe(kmeans_).pipe(dbscan_)
+    tes.to_pickle("4_hasil_cluster.pkl")
 #     dbscan_method(df)
 # keluhan_flair()
