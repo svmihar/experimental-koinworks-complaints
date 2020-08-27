@@ -12,6 +12,7 @@ sklearn = "^0.0"
 flair = "^0.5.1"
 pylint = "^2.6.0"
 ktrain = "^0.20.0"
+annoy = "^1.16.3"
 
 [tool.poetry.dev-dependencies]
 black = {version = "^19.10b0", allow-prereleases = true}

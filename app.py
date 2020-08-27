@@ -61,7 +61,7 @@ def write_top_words(labels: list, method: str, df: pd.DataFrame) -> list:
     words = [df[df[method] == i].cleaned for i in labels]
     top_words = [get_k_word(a) for a in words]
     for i, topic in enumerate(top_words):
-        st.write(i, ' '.join(topic))
+        st.write(i, " ".join(topic))
 
 
 def eda():

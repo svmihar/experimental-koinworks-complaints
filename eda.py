@@ -2,6 +2,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition.pca import PCA
 from sklearn.model_selection import train_test_split
 from util import data_path
+from joblib import dump
 import pandas as pd
 
 
@@ -33,3 +34,4 @@ with open(data_path / "flair_format/test.txt", "w") as f:
 with open(data_path / "flair_format/valid.txt", "w") as f:
     for t in y_val:
         f.writelines(f"{t}\n")
+dump(vectorizer, './data/tfidf_vectorizer.pkl')
