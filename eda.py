@@ -34,4 +34,4 @@ with open(data_path / "flair_format/test.txt", "w") as f:
 with open(data_path / "flair_format/valid.txt", "w") as f:
     for t in y_val:
         f.writelines(f"{t}\n")
-dump(vectorizer, './data/tfidf_vectorizer.pkl')
+dump(vectorizer, "./data/tfidf_vectorizer.pkl")

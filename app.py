@@ -1,9 +1,7 @@
-from os import write
 from numpy.core.defchararray import array
 import streamlit as st
 import numpy as np
 import pandas as pd
-from streamlit.proto.DataFrame_pb2 import DataFrame
 import plotly.express as px
 import ktrain
 from cleaning import preprocess
@@ -74,13 +72,10 @@ def eda():
     plotlychart = px.scatter(plot_df, x="pca_x", y="pca_y", color="kmeans")
     st.plotly_chart(plotlychart)
     kmeans_label = set(df["kmeans"].values)
-    word = write_top_words(kmeans_label, "kmeans", df)
 
     st.header("dbscan")
     plotlychart1 = px.scatter(plot_df, x="pca_x", y="pca_y", color="dbscan")
     st.plotly_chart(plotlychart1)
-    dbscan_labels = set(df["dbscan"].values)
-    word = write_top_words(dbscan_labels, "dbscan", df)
 
 
 def generate():
