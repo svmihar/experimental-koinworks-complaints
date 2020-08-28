@@ -77,8 +77,8 @@ def lda_method(df):
 
 
 if __name__ == "__main__":
-    df = pd.read_pickle(data_path / "3_koinworks_embeddings.pkl")
+    df = pd.read_pickle(data_path / "2_koinworks_fix.pkl")
     tes = df.pipe(kmeans_).pipe(dbscan_)
-    tes.to_pickle("4_hasil_cluster.pkl")
+    tes.to_pickle(data_path / "4_hasil_cluster.pkl")
 #     dbscan_method(df)
 # keluhan_flair()

@@ -29,6 +29,7 @@ all these method to find the keluhan tweet are thematically related.
 ## pipeline
 1. cleaning
 2. eda
+something missing here
 3. cluster_topic (choosing the complaining topic)
 [optional] check eda result on `check_topics_clustering.ipynb`
 4. train classifier (bi-lstm)
@@ -129,6 +130,9 @@ dumb random shit. decided not to use it as a clustering method
 
 ### dbscan
 9, sucks.
+
+### top2vec 
+see /experiments/
 
 ## blog post ideas
 - [ini buat opening](https://twitter.com/pakelagu/status/1292346337803923456)

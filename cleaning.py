@@ -46,7 +46,7 @@ def preprocess(tweet: str) -> str:
 
 
 if __name__ == "__main__":
-    df = pd.read_csv(data_path / "koinworks.csv")
+    df = pd.read_csv(data_path / "0_koinworks.csv")
     data_folder = os.listdir()
     df["cleaned"] = df["tweet"].apply(preprocess)
     df["flair_dataset"] = df["cleaned"]
