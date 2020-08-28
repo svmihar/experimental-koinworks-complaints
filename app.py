@@ -53,25 +53,25 @@ class _cluster:
 
     def plot_df(self):
         records = {
-            "kmeans_label":self.kmeans,
-            "dbscan_label":self.dbscan,
+            "kmeans_label": self.kmeans,
+            "dbscan_label": self.dbscan,
             "x": self.x,
             "y": self.y,
         }
         df = pd.DataFrame(records)
         return df
+
     @classmethod
     def get_k_words(self, tweets):
         words = [b for a in tweets for b in a.split()]
-        return ' '.join([a[0] for a in Counter(words).most_common(10)])
+        return " ".join([a[0] for a in Counter(words).most_common(10)])
 
     def top_words(self):
-        k_words = [self.df[self.df['kmeans'] == i].cleaned for i in set(self.kmeans)]
-        d_words = [self.df[self.df['dbscan'] == i].cleaned for i in set(self.dbscan)]
+        k_words = [self.df[self.df["kmeans"] == i].cleaned for i in set(self.kmeans)]
+        d_words = [self.df[self.df["dbscan"] == i].cleaned for i in set(self.dbscan)]
         k_top = [self.get_k_words(a) for a in k_words]
         d_top = [self.get_k_words(a) for a in d_words]
         return k_top, d_top
-
 
 
 def main():

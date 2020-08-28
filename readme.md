@@ -1,5 +1,6 @@
 # Scraping tweet tentang koinworks
 we got em boys. keluhan classifier. classifiy which tweet are "keluhan terhadap telat bayar ke koinworks"
+
 ## real questions
 1) What high-level trends can be inferred from Koinworks
 tweets?
@@ -90,6 +91,7 @@ mostlikely keluhan keywords:
 - dashboard:
 	- daily keluhan berapa
 	- top keywords keluhan
+	- label buat graph nya, selain warna
 - search engine
 	- bisa tau kasus mana yang mirip dengan yang dicari
 		- ini ngelist username, tweet sama tanggal dia ngetweetnya
@@ -106,8 +108,13 @@ flair model can be downloaded [here](https://drive.google.com/drive/u/5/folders/
 - `WordEmbeddings('id-crawl')`
 
 ## search engine
-### annoy
-- make tree
+### ~~annoy~~
+- ~~make tree~~
+exhaustive aja
+
+## classifier
+- train a tf model / fastai model
+- onnx  / fastinference
 
 ### milvus
 ~~[milvus](https://milvus.io/)~~
