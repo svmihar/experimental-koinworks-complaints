@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 from util import data_path
 from joblib import dump
 import pandas as pd
-
+from umap import UMAP
 
 df = pd.read_pickle(data_path / "1_koinworks_cleaned.pkl")
 df = df[["id", "date", "username", "cleaned", "tweet", "name"]]
@@ -17,9 +17,14 @@ df.dropna(inplace=True)
 # TFIDF embeddings
 vectorizer = TfidfVectorizer()
 pca = PCA(n_components=2, svd_solver="full")
+um = UMAP(n_components=5, n_neighbors=15, metric='euclidean')
 X = vectorizer.fit_transform(df.cleaned.values)
+X_umap = um.fit_transform(X.toarray())
 X_pca = pca.fit_transform(X.toarray())
 df["pca"] = [a for a in X_pca]
+um = UMAP(n_components=2, n_neighbors=15, metric='euclidean')
+df["umap_2d"] = [a for a in um.fit_transform(X)]
+df["umap"] = [a for a in X_umap]
 df["tfidf"] = X
 df.to_pickle(data_path / "2_koinworks_fix.pkl")
 tweets = df.cleaned.values

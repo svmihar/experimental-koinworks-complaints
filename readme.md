@@ -1,5 +1,12 @@
 # Scraping tweet tentang koinworks
 we got em boys. keluhan classifier. classifiy which tweet are "keluhan terhadap telat bayar ke koinworks"
+## real questions
+1) What high-level trends can be inferred from Koinworks
+tweets?
+2) Are there any events that lead to spikes in koinworks
+Twitter activity?
+3) Which topics are distinct from each other?
+disease outbreaks?
 
 ## approach
 ### finding the keluhan tweets
@@ -131,7 +138,7 @@ dumb random shit. decided not to use it as a clustering method
 ### dbscan
 9, sucks.
 
-### top2vec 
+### top2vec
 see /experiments/
 
 ## blog post ideas
